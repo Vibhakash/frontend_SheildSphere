@@ -1,0 +1,13 @@
+{
+  "/compliance-reports/page": "app/compliance-reports/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/login-dashboard/page": "app/login-dashboard/page.js",
+  "/login-devices/page": "app/login-devices/page.js",
+  "/login-history/page": "app/login-history/page.js",
+  "/login-locations/page": "app/login-locations/page.js",
+  "/login-map-view/page": "app/login-map-view/page.js",
+  "/page": "app/page.js",
+  "/security-recommendations/page": "app/security-recommendations/page.js",
+  "/security-tools/page": "app/security-tools/page.js",
+  "/settings/page": "app/settings/page.js"
+}
