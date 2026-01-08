@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import {
@@ -23,7 +23,6 @@ import {
   Moon,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useTheme } from "@/lib/theme-context"
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -32,8 +31,30 @@ interface DashboardLayoutProps {
 
 export default function DashboardLayout({ children, email }: DashboardLayoutProps) {
   const router = useRouter()
-  const { theme, toggleTheme } = useTheme()
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [theme, setTheme] = useState<"light" | "dark">("dark")
+
+  useEffect(() => {
+    // Get theme from localStorage
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null
+    if (savedTheme) {
+      setTheme(savedTheme)
+      document.documentElement.classList.toggle("dark", savedTheme === "dark")
+    } else {
+      // Check system preference
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+      const initialTheme = isDark ? "dark" : "light"
+      setTheme(initialTheme)
+      document.documentElement.classList.toggle("dark", isDark)
+    }
+  }, [])
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark"
+    setTheme(newTheme)
+    localStorage.setItem("theme", newTheme)
+    document.documentElement.classList.toggle("dark", newTheme === "dark")
+  }
 
   const handleLogout = () => {
     localStorage.removeItem("userEmail")
